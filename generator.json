@@ -1,0 +1,10 @@
+{
+	"baseName": "burgerFactory",
+	"databaseType": "sqlite",
+	"hostName": "localhost",
+	"databaseName": "/tmp/burger_db",
+	"userName": "",
+	"password": "",
+	"entities": [],
+	"composer": true
+}
