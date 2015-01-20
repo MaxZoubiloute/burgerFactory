@@ -1,10 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+<h3>List of all burgers</h3>
 
-</body>
-</html>
+<form class="form-inline" style="margin-bottom:10px">
+    <span><b>Search: </b></span> <input type="text" style="width:200px" ng-model="search" class="form-control" placeholder="Name">
+</form>
+
+<table class="table table-striped table-hover">
+    <thead>
+    <tr>
+        <th><a href="" ng-click="orderProp='burgerid'; reverse=!reverse">#</a></th>
+        <th><a href="" ng-click="orderProp='name'; reverse=!reverse">Name</a></th>
+        <th>Version</th>
+        <th>Ingredients</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="burger in burgers | filter:search | orderBy:orderProp:reverse" ng-click="selectBurger(burger)">
+        <td>{{burger.burgerid}}</td>
+        <td>{{burger.name}}</td>
+        <td>{{burger.version}}</td>
+        <td>{{burger.ingredients}}</td>
+    </tr>
+    </tbody>
+</table>

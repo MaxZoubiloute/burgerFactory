@@ -1,0 +1,12 @@
+
+//
+curl -X GET http://localhost:8080/burger
+
+// Try to create a new burger
+curl -X POST -d "name=Double Cheese" http://localhost:8080/burger
+
+//
+curl -X DELETE http://localhost:8080/burger/1
+
+// Try to create a new ingredient
+curl -X POST -d "name=cheese" -d "spicylevel=0" http://localhost:8080/ingredient

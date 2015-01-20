@@ -6,7 +6,8 @@
     "angular-resource": "~1.2.13",
     "angular-route": "~1.2.13",
     "angular": "~1.2.13",
-    "bootstrap-css": "~3.2.0"
+    "bootstrap-css": "~3.2.0",
+    "bootswatch-dist": "~3.3.0-readable"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.13",

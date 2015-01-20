@@ -3,7 +3,21 @@
         <div class="col-md-8">
             <h1>Welcome to BurgerFactory!</h1>
             <p class="lead">Last 10 created Burgers</p>
-
+            <carousel interval="myInterval">
+                <slide ng-repeat="burger in lastburgers" active="slide.active">
+                    <!--<img ng-src="{{slide.image}}" style="margin:auto;">-->
+                    <div class="carousel-caption">
+                        <h4>{{burger.name}}</h4>
+                        <p>
+                            <ul>
+                                <li ng-repeat="ingredient in burger.ingredients">
+                                    {{ingredient.name}} ": " {{ingredient.spicylevel}}
+                                </li>
+                            </ul>
+                        </p>
+                    </div>
+                </slide>
+            </carousel>
         </div>
     </div>
 </div>

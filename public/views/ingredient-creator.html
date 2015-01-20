@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h3 class="modal-title">Create a new Ingredient!</h3>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="inputName" class="col-sm-3 control-label">Name</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="newIngredient.name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputSpicy" class="col-sm-3 control-label">Spicy Level</label>
+            <div class="col-sm-9">
+                <span class="pull-left">0</span>
+                <span class="pull-right">3</span>
+                <input type="range" class="form-control" id="inputSpicy" min="0" max="3" step ="1" ng-model="newIngredient.spicylevel">
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-success" ng-click="createIngredient()">Create</button>
+</div>

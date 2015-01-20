@@ -1,0 +1,22 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{ burger.name }}</h3>
+    <div class="form-group" ng-show="edit">
+        <label for="inputName" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="newBurger.name">
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <ul>
+        <li ng-repeat="ingredient in burger.ingredients">
+            {{ ingredient.name }} + " <b>Scipy level:</b>" + {{ ingredient.spicylevel}}
+        </li>
+    </ul>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-error" ng-click="delete()">Delete</button>
+    <button class="btn btn-warning" ng-click="edit=true">Modify</button>
+    <button class="btn btn-default" ng-click="close()">Close</button>
+
+</div>

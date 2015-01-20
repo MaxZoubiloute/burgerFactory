@@ -7,6 +7,5 @@ angular.module('burgerFactory.services.burger', [])
         var Burger = $resource(apiUrl + '/burger/:burgerId', {burgerId: '@id'}, {
             update: { method: 'PUT'}
         });
-
         return Burger;
     }]);

@@ -2,6 +2,7 @@
 // Declare app level module which depends on filters, and services
 angular.module('burgerFactory.controllers', [
     'burgerFactory.controllers.home',
+    'burgerFactory.controllers.navbar',
     'burgerFactory.controllers.burger',
     'burgerFactory.controllers.ingredient'
 
@@ -22,7 +23,7 @@ var app = angular.module('burgerFactory',
     ]
 );
 
-app.constant("apiUrl", "http://localhost/")
+app.constant("apiUrl", "http://localhost:8080")
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
             .when('/', {templateUrl: 'views/home.html', controller: 'HomeController'})

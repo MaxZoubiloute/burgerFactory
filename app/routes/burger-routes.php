@@ -6,6 +6,11 @@
  * Time: 23:13
  */
 
+$app->get('/burger/last', function () use ($db, $app) {
+    $sth = $db->query('SELECT * FROM burger LIMIT 10;');
+    echo json_encode($sth->fetchAll(PDO::FETCH_CLASS));
+});
+
 $app->get('/burger', function () use ($db, $app) {
     $sth = $db->query('SELECT * FROM burger;');
     echo json_encode($sth->fetchAll(PDO::FETCH_CLASS));
@@ -18,21 +23,21 @@ $app->get('/burger/:id', function ($id) use ($db, $app) {
 });
 
 $app->post('/burger', function () use ($db, $app) {
-    $title = $app->request()->post('title');
-    $sth = $db->prepare('INSERT INTO burger (url, title) VALUES (?, ?);');
+    $app->request();
+    $sth = $db->prepare('INSERT INTO burger (name, version) VALUES (?, 0);');
     $sth->execute([
-        $url = $app->request()->post('url'),
-        empty($title) ? getTitleFromUrl($url) : $title,
+        $name = $app->request()->post('name'),
     ]);
 
+    //TODO Insert ingredient in join table
     returnResult('add', $sth->rowCount() == 1, $db->lastInsertId());
 });
 
 $app->put('/burger/:id', function ($id) use ($db, $app) {
-    $sth = $db->prepare('UPDATE burger SET title = ?, url = ? WHERE id = ?;');
+    $sth = $db->prepare('UPDATE burger SET name = ?, version = ? WHERE id = ?;');
     $sth->execute([
-        $app->request()->post('title'),
-        $app->request()->post('url'),
+        $app->request()->post('name'),
+        $app->request()->post('version'),
         intval($id),
     ]);
 
@@ -43,5 +48,6 @@ $app->delete('/burger/:id', function ($id) use ($db) {
     $sth = $db->prepare('DELETE FROM burger WHERE id = ?;');
     $sth->execute([intval($id)]);
 
+    //TODO Delete ingredient in join table
     returnResult('delete', $sth->rowCount() == 1, $id);
 });
