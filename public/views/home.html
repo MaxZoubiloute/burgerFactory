@@ -4,17 +4,16 @@
             <h1>Welcome to BurgerFactory!</h1>
             <p class="lead">Last 10 created Burgers</p>
             <carousel interval="myInterval">
-                <slide ng-repeat="burger in lastburgers" active="slide.active">
-                    <!--<img ng-src="{{slide.image}}" style="margin:auto;">-->
+                <slide ng-repeat="burger in lastBurgers" style="min-height: 350px">
+                    <img ng-src="res/burger.png" style="margin:auto;">
                     <div class="carousel-caption">
                         <h4>{{burger.name}}</h4>
-                        <p>
-                            <ul>
-                                <li ng-repeat="ingredient in burger.ingredients">
-                                    {{ingredient.name}} ": " {{ingredient.spicylevel}}
-                                </li>
-                            </ul>
-                        </p>
+                        <ul class="list-group" style="color:#000000">
+                            <li ng-repeat="ingredient in burger.ingredients" style="list-style-type:none;">
+                                {{ingredient.name}}
+                                <span class="glyphicon glyphicon-fire"></span>{{ingredient.spicylevel}}
+                            </li>
+                        </ul>
                     </div>
                 </slide>
             </carousel>

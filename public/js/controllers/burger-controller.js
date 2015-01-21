@@ -5,6 +5,7 @@ angular.module('burgerFactory.controllers.burger',[])
     .controller('BurgerController', ['$scope', 'Burger', '$modal', '$routeParams', '$location', function ($scope, Burger, $modal, $routeParams, $location) {
 
         $scope.refresh = function(){
+            console.log("Refreshing");
             $scope.burgers =  Burger.query(function(){
 
             });
@@ -15,20 +16,30 @@ angular.module('burgerFactory.controllers.burger',[])
                 templateUrl: 'views/burger-creator.html',
                 controller: function ($scope, $location, $modalInstance, Burger, Ingredient) {
                     $scope.ingredients = Ingredient.query();
+                    $scope.newBurger = {name:"", ingredients:[]};
 
                     $scope.createBurger = function () {
                         $scope.newBurger = new Burger($scope.newBurger);
-                        console.log($scope.newBurger);
                         $scope.newBurger.$save(function (data, getResponseHeaders) {
                             $modalInstance.close();
                         }, function (data, getResponseHeaders) {
                             //error call-back
                         });
-                    }
+                    };
+
+                    $scope.addIngredient = function(ingredient, index){
+                        $scope.newBurger.ingredients.push(ingredient);
+                        $scope.ingredients.splice(index, 1);
+                    };
+
+                    $scope.removeIngredient = function(ingredient, index){
+                        $scope.ingredients.push(ingredient);
+                        $scope.newBurger.ingredients.splice(index, 1);
+                    };
 
                     $scope.cancel = function () {
                         $modalInstance.dismiss('cancel');
-                    }
+                    };
                 },
                 resolve: {
                 }
@@ -36,31 +47,49 @@ angular.module('burgerFactory.controllers.burger',[])
 
             createModalInstance.result.then(function(){
                 $scope.refresh();
-            }, function(){});
+            }, function(){
+                $scope.refresh();
+            });
         }
 
         $scope.selectBurger = function (burger) {
-            $modal.open({
+            var editModalInstance = $modal.open({
                 templateUrl: 'views/burger-editor.html',
-                controller: function($scope, $modal, $modalInstance, Ingredient){
+                controller: function($scope, $modal, $modalInstance, Ingredient, burger){
+                    $scope.burger = burger;
+
                     $scope.ingredients = Ingredient.query();
 
                     $scope.close = function(){
                         $modalInstance.close();
-                    }
+                    };
+
+                    $scope.addIngredient = function(ingredient, index){
+                        if (!$scope.burger.ingredients){
+                            $scope.burger.ingredients = [];
+                        }
+                        $scope.burger.ingredients.push(ingredient);
+                        $scope.ingredients.splice(index, 1);
+                    };
+
+                    $scope.removeIngredient = function(ingredient, index){
+                        $scope.ingredients.push(ingredient);
+                        $scope.burger.ingredients.splice(index, 1);
+                    };
 
                     // Open a confirmation modal then delete
                     $scope.delete = function(burger){
                         var confirmModalInstance = $modal.open({
                             templateUrl: 'views/confirm-delete.html',
                             size:"sm",
-                            controller: function($scope, $modalInstance, Burger) {
+                            controller: function($scope, $modalInstance, Burger, burger) {
                                 $scope.cancel = function () {
                                     $modalInstance.dismiss('cancel');
                                 }
+
                                 $scope.delete = function(){
-                                    $scope.burger = new Burger($scope.burger);
-                                    $scope.burger.$remove({burgerId: $scope.burger.burgerId}, function(){
+                                    burger = new Burger(burger);
+                                    burger.$remove({burgerId: burger.burgerid}, function(){
                                         $modalInstance.close();
                                     }, function(){
                                         console.log('Error burger not deleted');
@@ -80,8 +109,13 @@ angular.module('burgerFactory.controllers.burger',[])
 
                     };
 
+                    // Update burger when modified
                     $scope.update = function(){
-                        //TODO
+                        $scope.burger = new Burger($scope.burger);
+                        $scope.burger.$update({burgerId: $scope.burger.burgerid}, function(){
+                            $scope.edit = false;
+                            $modalInstance.close();
+                        });
                     };
                 },
                 resolve: {
@@ -90,6 +124,10 @@ angular.module('burgerFactory.controllers.burger',[])
                     }
                 }
             });
+
+            editModalInstance.result.then(function(){
+                $scope.refresh();
+            }, function(){});
         };
 
         // Initialisation

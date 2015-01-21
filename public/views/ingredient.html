@@ -2,7 +2,7 @@
 
 <form class="form-inline" style="margin-bottom:10px">
     <span><b>Search: </b></span> <input type="text" style="width:200px" ng-model="search" class="form-control" placeholder="Name">
-    <button class="btn btn-success pull-right" ng-click="createIngredient()">Add Ingredient</button>
+    <button class="btn btn-success pull-right" ng-click="createIngredientModal()">Add Ingredient</button>
 </form>
 
 <table class="table table-striped table-hover">
@@ -15,7 +15,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="ingredient in ingredients | filter:search | orderBy:orderProp:reverse" ng-click="selectBurger(ingredient)">
+    <tr ng-repeat="ingredient in ingredients | filter:search | orderBy:orderProp:reverse" ng-click="selectIngredient(ingredient)">
         <td>{{ingredient.ingredientid}}</td>
         <td>{{ingredient.name}}</td>
         <td>{{ingredient.spicylevel}}</td>

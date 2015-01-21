@@ -18,7 +18,11 @@
         <td>{{burger.burgerid}}</td>
         <td>{{burger.name}}</td>
         <td>{{burger.version}}</td>
-        <td>{{burger.ingredients}}</td>
+        <td>
+            <span ng-repeat="ingredient in burger.ingredients" style="padding-right: 5px">
+                {{ ingredient.name }}
+            </span>
+        </td>
     </tr>
     </tbody>
 </table>

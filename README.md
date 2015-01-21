@@ -8,19 +8,21 @@ Install [Composer](https://getcomposer.org/):
 
     curl -s http://getcomposer.org/installer | php
 
-Install dependencies manually if composer was not pre-installed:
+Install composer dependencies
 
-    php composer.phar update
+    php composer.phar update & bower install & npm install
 
-Install Depedencies:
-
-    bower install & npm install
 
 ## Start Application
 
 Run the service:
 
     php -S 127.0.0.1:8080 -t public
+
+Install Database:
+
+    http://localhost:8080/install
+
 
 A client-side AngularJS application will now be available by running
 

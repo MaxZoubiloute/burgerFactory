@@ -1,0 +1,27 @@
+<div class="modal-header">
+    <h3 class="modal-title" ng-hide="edit">{{ ingredient.name }}</h3>
+    <div class="form-group" ng-show="edit">
+        <label for="inputName" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="ingredient.name">
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="form-group">
+        <label for="inputSpicy" class="col-sm-3 control-label">Spicy Level</label>
+        <div class="col-sm-9">
+            <span class="pull-left">0</span>
+            <span class="pull-right">3</span>
+            <input type="range" class="form-control" id="inputSpicy" min="0" max="3" step ="1" ng-model="ingredient.spicylevel">
+        </div>
+    </div>
+    <br>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-error" ng-click="delete(ingredient)" ng-hide="edit">Delete</button>
+    <button class="btn btn-warning" ng-click="edit=true" ng-hide="edit">Modify</button>
+    <button class="btn btn-default" ng-click="edit=false" ng-show="edit">Cancel</button>
+    <button class="btn btn-primary" ng-click="update(ingredient)" ng-show="edit">Save</button>
+    <button class="btn btn-default" ng-click="close()" ng-hide="edit">Close</button>
+</div>

@@ -2,7 +2,10 @@
 
 require '../vendor/autoload.php';
 
-$app = new \Slim\Slim();
+$app = new \Slim\Slim(array(
+    'debug' => true,
+    'log.level' => \Slim\Log::DEBUG
+));
 $app->contentType('application/json');
 $db = new PDO('sqlite:../app/db.sqlite3');
 
@@ -43,9 +46,10 @@ $app->get('/install', function () use ($db) {
                     spicylevel INTEGER);');
     $db->exec('  CREATE TABLE IF NOT EXISTS burger_ingredient (
                     burgerid INTEGER,
-                    ingredientid TEXT UNIQUE,
+                    ingredientid INTEGER,
                     FOREIGN KEY(burgerid) REFERENCES burger(burgerid),
-                    FOREIGN KEY(ingredientid) REFERENCES ingredient(ingredientid));');
+                    FOREIGN KEY(ingredientid) REFERENCES ingredient(ingredientid),
+                    PRIMARY KEY(burgerid, ingredientid));');
 
     returnResult('install');
 });

@@ -1,5 +1,5 @@
 <div class="modal-header">
-      <h3 class="modal-title">Create a new Burger!</h3>
+    <h3 class="modal-title">Create a new Burger!</h3>
 </div>
 <div class="modal-body">
     <form class="form-horizontal">
@@ -10,11 +10,40 @@
             </div>
         </div>
         <h5>Select ingredients</h5>
-        <ul>
-            <li ng-repeat="ingredient in ingredients">
-                {{ ingredient.name }} <b>Scipy level:</b> {{ ingredient.spicylevel}}
-            </li>
-        </ul>
+        <div class="row">
+            <div class=" col-sm-6">
+                <div class="panel panel-default" >
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">Select ingredient</div>
+                    <!-- List group -->
+                    <ul class="list-group" style="max-height: 220px; overflow-y: scroll;">
+                        <li class="list-group-item" ng-repeat="ingredient in ingredients" >
+                            <a href="" ng-click="addIngredient(ingredient, $index)">
+                                <span class="glyphicon glyphicon-plus-sign"></span>
+                                {{ ingredient.name }}
+                            </a>
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-fire"></span>: {{ ingredient.spicylevel }}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">Selected ingredient</div>
+                    <!-- List group -->
+                    <ul class="list-group" style="max-height: 200px;overflow-y: scroll;">
+                        <li class="list-group-item" ng-repeat="ingredient in newBurger.ingredients">
+                            {{ ingredient.name }}
+                            <a class="glyphicon glyphicon-minus-sign pull-right" ng-click="removeIngredient(ingredient, $index)"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
     </form>
 </div>
 <div class="modal-footer">
